@@ -1,0 +1,8 @@
+.result {
+    display: block;
+    height: 60px;
+    background-color: #bbb;
+    width: 100%;
+    font-size: 40px;
+    color: black;
+  }

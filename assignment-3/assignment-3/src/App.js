@@ -1,123 +1,79 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+//import Employee from './Employee/Employee';
 
 class App extends Component {
-  
-  constructor(){
-    
-    super();
-    this.state={
-      employeeList : [
-       
-      ],
-      addEmployee : false
+  constructor() {
+      super();
+      this.state = {
+      name:'',
+      job: '',
+      employee: []
     }
-    
+  };
+
+  name1 = "Name";
+  job1 = "Job";
+  remove = "Remove";
+
+  changeHandler = (event) => {
+     let input = event.target;
+     let tempName = event.target.name;
+     let value = input.value;
+     this.setState({[tempName]:value})
+  };
+
+  addEmployeeHandler = (event) => {
+    event.preventDefault();
+    let employeeA = [...this.state.employee];
+    employeeA.push({name:this.state.name, job:this.state.job});
+    this.setState({employeeA, name: '',job:''});
   }
 
-
-  addEmployee() {
-      this.setState({
-          
-          addEmployee : true,
-        })
+  style = {
+    fontWeight: 'bold',
+    paddingLeft: '10px'
   }
 
-
-  addEmployeeData(){
-
-    const name = document.getElementById('name').value;
-    const job = document.getElementById('job').value;
-  
-    this.state.employeeList.push(
-      {
-        name:name,
-        job: job,
-
-      },
-    )
-      this.setState({
-        addEmployee : false,
-      })
-  }
-
-
-  deleteEmployee(index){
-   const empList = this.state.employeeList;
-    empList.splice(index, 1)
-   this.setState({
-     empList
-   })
-  }
-    
-
-  renderDisplay(){
-    return(
-      
-        <div>
-          <h1>Employee List</h1>
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th >Name</th>
-                  <th >Job</th>
-                 
-                  <th >Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-              {this.state.employeeList.map((value, index)=>{
-                    return(
-                       <tr>
-                            <td>{value.name}</td>
-                            <td >{value.job}</td>
-                        
-                            <td ><button onClick={()=>{
-                              this.deleteEmployee(index)
-                            }}>Delete</button></td>
-                          </tr>
-                         
-                    )
-                  })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-    )
-    
-  }
-
-  renderAddEmployee() {
-    return(
-      <div>
-        <h1>Add New Employee</h1>
-        <form>
-        <div>
-          <label >Name</label>
-          <input type="text"  id="name"  placeholder="Enter Name"/>
-        </div>
-        <div>
-          <label >Job</label>
-          <input type="text"  id="job" placeholder="Enter Job Title"/>
-        </div>
-        </form>
-        <button onClick={()=>{
-        this.addEmployeeData()
-        }}>Submit</button>
-      </div>
-    )
-  }
+  // employeeArray = (
+  //   this.state.employee.map(emp => {
+  //     return <Employee 
+  //       name={emp.name}
+  //       job={emp.job}
+  //     />
+  //   })
+  // );
 
   render() {
     return (
+    <div className="App">
+      <p>Add an employee with a name and a job to the table</p>
+      <table>
+      <thead>
+        <tr>
+          <th>{this.name1}</th>
+          <th>{this.job1}</th>
+          <th>{this.remove}</th>
+        </tr>
+      </thead>
+      </table>
+      {this.employeeArray}
       
-      <div className="App">
-      { this.renderDisplay()}
-      { this.renderAddEmployee()} 
-      </div>
-    );
+      <form onSubmit= {this.addEmployeeHandler.bind(this)}>
+        <h2>Add New Employees</h2>
+        <div style={this.style}> {this.name1}</div>
+        
+        <input type="text" name="name" value={this.state.name} onChange={this.changeHandler.bind(this)}/>
+        
+        <div style={this.style}> {this.job1}</div>
+        
+        <input type="text" name="job" value={this.state.job} onChange={this.changeHandler.bind(this)}/>
+        
+        <button type="submit" value="Submit"> Submit </button>
+      </form>
+
+    </div>
+    )
   }
 }
 

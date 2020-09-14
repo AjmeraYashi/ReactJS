@@ -1,0 +1,15 @@
+.button {
+    display: block;
+    background-color: #bbb;
+    block-size: 200px 200px;
+  }
+  
+button {
+    width: 25%;
+    height: 60px;
+    font-size: 30px;
+}
+
+#clear {
+    width: 75%;
+}
